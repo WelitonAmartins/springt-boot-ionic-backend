@@ -3,10 +3,12 @@ package com.weliton.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.weliton.cursomc.domain.Categoria;
 import com.weliton.cursomc.repositories.CategoriaRepository;
+import com.weliton.cursomc.services.exception.DataIntegrityException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -35,6 +37,18 @@ public class CategoriaService {
 		public Categoria update(Categoria obj) throws ObjectNotFoundException {
 			buscar(obj.getId());
 			return repo.save(obj);
+		}
+		
+		public void delete(Integer id) throws ObjectNotFoundException {
+			//verefica se o id existe na linha a baixo
+			buscar(id);
+			
+			try {
+			repo.deleteById(id);
+			}
+			catch(DataIntegrityViolationException e) {
+				throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+			}
 		}
 		
 }
