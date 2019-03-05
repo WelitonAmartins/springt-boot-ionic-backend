@@ -8,8 +8,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.weliton.cursomc.domain.Categoria;
+import com.weliton.cursomc.dto.CategoriaDTOO;
 import com.weliton.cursomc.repositories.CategoriaRepository;
 import com.weliton.cursomc.services.exception.DataIntegrityException;
+import com.weliton.cursomc.wrapper.CategoriaWrapper;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -17,6 +19,9 @@ import javassist.tools.rmi.ObjectNotFoundException;
 public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
+	
+	@Autowired
+	private CategoriaWrapper wrapper;
 	
 	
 	public Categoria buscar(Integer id) throws ObjectNotFoundException {
@@ -47,8 +52,22 @@ public class CategoriaService {
 			}
 		}
 		
+		/**
+		 * Metado que busca todas categoria do banco
+		 * @return
+		 */
 		public List<Categoria> findAll(){
 			return repo.findAll();
 		}
+		
+		/**
+		 * Metado que transforma todos objetos encontrado
+		 *  no banco categoria para DTO
+		 * @return
+		 */
+		public List<CategoriaDTOO> buscarTodosDTO(){
+			return wrapper.wrapperTodos(this.findAll());
+		}
+
 		
 }

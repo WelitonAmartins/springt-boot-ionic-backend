@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.weliton.cursomc.domain.Categoria;
 import com.weliton.cursomc.dto.CategoriaDTO;
+import com.weliton.cursomc.dto.CategoriaDTOO;
 import com.weliton.cursomc.services.CategoriaService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -54,12 +55,18 @@ public class CategoriaResources {
 		return ResponseEntity.noContent().build();
 	
 }
-	//padrao Rest de pesquisar dados
+//	//padrao Rest de pesquisar dados
+//	@RequestMapping(method=RequestMethod.GET)
+//	public ResponseEntity<List<CategoriaDTO>> findAll() throws ObjectNotFoundException {
+//		List<Categoria> list = service.findAll();
+//		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+//		return ResponseEntity.ok().body(listDto);
+//
+//	}
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> findAll() throws ObjectNotFoundException {
-		List<Categoria> list = service.findAll();
-		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
+	public ResponseEntity<List<CategoriaDTOO>> findTodos() throws ObjectNotFoundException {
+		return ResponseEntity.ok(this.service.buscarTodosDTO());
 
 	}
 	
