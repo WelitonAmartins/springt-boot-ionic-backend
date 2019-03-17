@@ -2,7 +2,6 @@ package com.weliton.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.weliton.cursomc.business.CategoriaBusiness;
 import com.weliton.cursomc.domain.Categoria;
-import com.weliton.cursomc.dto.CategoriaDTO;
 import com.weliton.cursomc.dto.CategoriaDTOO;
 import com.weliton.cursomc.services.CategoriaService;
 
@@ -23,6 +22,10 @@ import javassist.tools.rmi.ObjectNotFoundException;
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResources {
+	
+	@Autowired
+	private CategoriaBusiness categoriaBusines;
+	
 	@Autowired
 	private CategoriaService service;
 	
@@ -66,7 +69,7 @@ public class CategoriaResources {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTOO>> findTodos() throws ObjectNotFoundException {
-		return ResponseEntity.ok(this.service.buscarTodosDTO());
+		return ResponseEntity.ok(this.categoriaBusines.buscarTodosDTO());
 
 	}
 	

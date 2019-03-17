@@ -20,8 +20,7 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
 	
-	@Autowired
-	private CategoriaWrapper wrapper;
+	
 	
 	
 	public Categoria buscar(Integer id) throws ObjectNotFoundException {
@@ -56,18 +55,11 @@ public class CategoriaService {
 		 * Metado que busca todas categoria do banco
 		 * @return
 		 */
-		public List<Categoria> findAll(){
+		public List<Categoria> BuscarTodos(){
 			return repo.findAll();
 		}
 		
-		/**
-		 * Metado que transforma todos objetos encontrado
-		 *  no banco categoria para DTO
-		 * @return
-		 */
-		public List<CategoriaDTOO> buscarTodosDTO(){
-			return wrapper.wrapperTodos(this.findAll());
-		}
+		
 
 		
 }
